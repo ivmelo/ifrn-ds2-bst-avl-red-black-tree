@@ -58,7 +58,7 @@ public class ArvoreRN {
 			System.out.println("caso 1");
 
 		} else if (no.getPai() != null && no.getPai().getCor() == no.RUBRO && no.getAvo() != null && no.getAvo().getCor() == no.NEGRO) {
-			//caso 2
+			// pai rubro, avo negro...
 			if (no.getPai().getIrmao() != null && no.getPai().getIrmao().getCor() == no.RUBRO) {
 				// caso 2, basta recolorir e ir subindo na arvore...
 				System.out.println("caso 2");
@@ -79,6 +79,7 @@ public class ArvoreRN {
 				// atualizar pai recursivamente (ir subindo na arvore)
 				atualizarBalanceamento(avo);
 			} else if (no.getPai().getIrmao() == null || no.getPai().getIrmao().getCor() == no.NEGRO) {
+				// caso 3 - rotacoes e recolorir arvore...
 				System.out.println("caso 3");
 				
 				if (no.getAvo().getFilhoEsquerdo() == no.getPai()) {
