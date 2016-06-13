@@ -59,7 +59,7 @@ public class ArvoreRN {
 		} else if (no.getPai() != null && no.getPai().getCor() == no.RUBRO && no.getAvo() != null && no.getAvo().getCor() == no.NEGRO) {
 			//caso 2
 			if (no.getPai().getIrmao() != null && no.getPai().getIrmao().getCor() == no.RUBRO) {
-				// colorir
+				// caso 2, basta recolorir e ir subindo na arvore...
 				System.out.println("caso 2");
 				
 				No avo = no.getAvo();
@@ -75,42 +75,81 @@ public class ArvoreRN {
 				if (avo.ehRaiz())
 					avo.setCor(no.NEGRO);
 				
-				// atualizar pai
+				// atualizar pai recursivamente (ir subindo na arvore)
 				atualizarBalanceamento(avo);
 			} else if (no.getPai().getIrmao() == null || no.getPai().getIrmao().getCor() == no.NEGRO) {
 				System.out.println("caso 3");
 				
 				if (no.getAvo().getFilhoEsquerdo() == no.getPai()) {
 					if (no.getPai().getFilhoEsquerdo() == no) {
-						//caso 3a
+						//caso 3a - rotacao direita simples
 						System.out.println("caso 3a");
+						No temp = no.getAvo();
+						temp = rotacaoDireita(temp);
+						
+						recolorirCaso3(temp);
 					} else {
-						// caso 3d
+						// caso 3d - rotacao direita dupla
 						System.out.println("caso 3d");
+						
+						No tempPai = no.getPai();
+						No tempAvo = no.getAvo();
+						
+						imprimir(tempAvo);
+						
+						tempPai = rotacaoEsquerda(tempPai);
+						imprimir(tempAvo);
+						tempAvo = rotacaoDireita(tempAvo);
+						imprimir(tempAvo);
+						
+						recolorirCaso3(tempAvo);
 					}
 				} else {
 					if (no.getPai().getFilhoDireito() == no) {
-						// caso 3b - rotaca esquerda simples
+						// caso 3b - rotacao esquerda simples
 						System.out.println("caso 3b");
 						No temp = no.getAvo();
 						temp = rotacaoEsquerda(temp);
 						
 						// ajustar cores
-						if(temp.getFilhoDireito() != null)
-							temp.getFilhoDireito().setCor(no.RUBRO);
-						
-						if(temp.getFilhoEsquerdo() != null)
-							temp.getFilhoEsquerdo().setCor(no.RUBRO);
-						
-						temp.setCor(no.NEGRO);
-						
+						recolorirCaso3(temp);
 					} else {
-						// caso 3c
+						// caso 3c - rotacao esquerda dupla
 						System.out.println("caso 3c");
+						
+						No tempPai = no.getPai();
+						No tempAvo = no.getAvo();
+						
+						// Mostrar manipulacao no avo...
+						imprimir(tempAvo);
+						tempPai = rotacaoDireita(tempPai);
+						imprimir(tempAvo);
+						tempAvo = rotacaoEsquerda(tempAvo);
+						imprimir(tempAvo);
+						
+						recolorirCaso3(tempAvo);
+						
 					}
 				}
 			}
 		} 
+	}
+	
+	// Pinta no de negro (n) e filhos de rubro (r).
+	//      n
+	//     / \
+	//    r   r
+	public No recolorirCaso3 (No no) {
+		// ajustar cores
+		if(no.getFilhoDireito() != null)
+			no.getFilhoDireito().setCor(no.RUBRO);
+		
+		if(no.getFilhoEsquerdo() != null)
+			no.getFilhoEsquerdo().setCor(no.RUBRO);
+		
+		no.setCor(no.NEGRO);
+		
+		return no;
 	}
 	
 	//     ROTACAO A DIREITA
