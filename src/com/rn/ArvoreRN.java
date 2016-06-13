@@ -184,7 +184,7 @@ public class ArvoreRN {
 				esquerdo.getPai().setFilhoEsquerdo(esquerdo); // passar· a ter como filho esquerdo o nÛ esquerdo
 			}
 		} else {
-			raiz = esquerdo;
+			raiz = esquerdo; // se o no for raiz, atualiza na avl
 		}
 		
 		return esquerdo;
@@ -222,7 +222,7 @@ public class ArvoreRN {
 				direito.getPai().setFilhoEsquerdo(direito); // passar· a ter como filho esquerdo o nÛ direito
 			}
 		} else {
-			raiz = direito;
+			raiz = direito; // se for raiz, atualiza na avl
 		}
 
 		return direito;
