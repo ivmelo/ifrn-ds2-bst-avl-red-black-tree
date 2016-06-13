@@ -1,3 +1,4 @@
+package com.rn;
 
 public class No {
 	public final byte RUBRO = 1;
